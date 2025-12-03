@@ -2,51 +2,59 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div class="input-field">
+            <i class="material-icons prefix">badge</i>
+            <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+            <label for="name">الاسم الكامل</label>
+            @error('name')
+                <span class="helper-text red-text text-darken-2">{{ $message }}</span>
+            @enderror
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="input-field">
+            <i class="material-icons prefix">mail_outline</i>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
+            <label for="email">البريد الإلكتروني</label>
+            @error('email')
+                <span class="helper-text red-text text-darken-2">{{ $message }}</span>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password" name="password" required autocomplete="new-password">
+                    <label for="password">كلمة المرور</label>
+                    @error('password')
+                        <span class="helper-text red-text text-darken-2">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="input-field">
+                    <i class="material-icons prefix">lock_reset</i>
+                    <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
+                    <label for="password_confirmation">تأكيد كلمة المرور</label>
+                    @error('password_confirmation')
+                        <span class="helper-text red-text text-darken-2">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+        <label class="waves-effect waves-light" style="display:flex;align-items:center;gap:12px;">
+            <input type="checkbox" class="filled-in" name="terms" required>
+            <span>أوافق على الشروط والأحكام</span>
+        </label>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="btn-large waves-effect waves-light" style="width: 100%; margin-top: 24px; background: linear-gradient(135deg, #ff6f61, #d500f9);">
+            إنشاء الحساب
+        </button>
     </form>
+
+    <div class="auth-footer">
+        لديك حساب بالفعل؟
+        <a href="{{ route('login') }}" class="deep-purple-text text-darken-2">تسجيل الدخول</a>
+    </div>
 </x-guest-layout>
